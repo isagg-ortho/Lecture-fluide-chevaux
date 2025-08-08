@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecture fluide - Aventures équestres</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: linear-gradient(135deg, #8B4513, #D2B48C); margin: 0; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; background: white; border-radius: 15px; padding: 25px; }
+        h1 { color: #8B4513; text-align: center; font-size: 2em; margin-bottom: 25px; }
+        .text-buttons { display: flex; justify-content: center; gap: 10px; margin-bottom: 25px; flex-wrap: wrap; }
+        .text-button { background: #D2B48C; color: #8B4513; border: none; padding: 10px 15px; border-radius: 20px; cursor: pointer; font-size: 14px; font-weight: bold; }
+        .text-button:hover { background: #8B4513; color: white; }
+        .text-button.active { background: #fd79a8; color: white; }
+        .exercise { background: #f8f9fa; border-radius: 10px; padding: 20px; margin: 15px 0; border-left: 5px solid #D2B48C; }
+        .text-title { color: #8B4513; font-size: 1.5em; text-align: center; margin-bottom: 15px; font-weight: bold; }
+        .text-passage { background: #FFF8DC; padding: 15px; border-radius: 8px; font-size: 1.1em; line-height: 1.6; margin: 15px 0; border: 2px solid #D2B48C; }
+        .text-passage span { padding: 1px; border-radius: 2px; }
+        .highlighted { background-color: #fef05a; padding: 2px 3px; border-radius: 3px; }
+        .controls { text-align: center; margin: 15px 0; }
+        button { background: #D2B48C; color: #8B4513; border: none; padding: 8px 16px; border-radius: 15px; cursor: pointer; margin: 3px; font-weight: bold; }
+        button:hover { background: #8B4513; color: white; }
+        .speed-control { text-align: center; margin: 10px 0; font-size: 0.9em; color: #8B4513; }
+        .progress-bar { width: 100%; height: 15px; background: #e9ecef; border-radius: 8px; margin: 15px 0; }
+        .progress-fill { height: 100%; background: #D2B48C; border-radius: 8px; width: 0%; transition: width 0.3s; }
+        .question { background: #f0f8e8; padding: 12px; border-radius: 8px; margin: 12px 0; border-left: 4px solid #28a745; }
+        .choices { margin: 10px 0; }
+        .choice { background: #f8f9fa; padding: 8px; border-radius: 5px; border: 1px solid #ddd; cursor: pointer; margin: 5px 0; }
+        .choice:hover { background: #e9ecef; }
+        .choice.correct { background: #d4edda; border-color: #28a745; }
+        .choice.incorrect { background: #f8d7da; border-color: #dc3545; }
+        .score { text-align: center; font-size: 1.2em; font-weight: bold; margin: 15px 0; background: #fff3cd; padding: 10px; border-radius: 8px; color: #8B4513; }
+        .text-content { display: none; }
+        .text-content.active { display: block; }
+        .feedback { padding: 10px; border-radius: 5px; margin: 10px 0; font-weight: bold; }
+        .feedback.correct { background: #d4edda; color: #155724; }
+        .feedback.incorrect { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🐎 Aventures équestres 🏇</h1>
+        
+        <div class="text-buttons">
+            <button class="text-button active" onclick="showText('spirit')">🐴 Esprit sauvage</button>
+            <button class="text-button" onclick="showText('bella')">🦄 Bella l'élégante</button>
+            <button class="text-button" onclick="showText('thunder')">⚡ Tonnerre le rapide</button>
+            <button class="text-button" onclick="showText('star')">⭐ Étoile la courageuse</button>
+        </div>
+        
+        <div id="spirit" class="text-content active">
+            <div class="exercise">
+                <div class="text-title">🐴 Esprit, le cheval sauvage</div>
+                <div class="text-passage" id="spiritText">
+                    <span>Esprit</span> <span>est</span> <span>un</span> <span>magnifique</span> <span>cheval</span> <span>brun</span> <span>qui</span> <span>vit</span> <span>dans</span> <span>les</span> <span>prairies</span> <span>sauvages.</span> <span>Sa</span> <span>crinière</span> <span>noire</span> <span>flotte</span> <span>au</span> <span>vent</span> <span>quand</span> <span>il</span> <span>galope</span> <span>librement.</span> <span>Esprit</span> <span>refuse</span> <span>d'être</span> <span>dressé</span> <span>par</span> <span>les</span> <span>humains.</span> <span>Il</span> <span>préfère</span> <span>courir</span> <span>avec</span> <span>son</span> <span>troupeau</span> <span>à</span> <span>travers</span> <span>les</span> <span>collines</span> <span>verdoyantes.</span> <span>Un</span> <span>jour,</span> <span>une</span> <span>jeune</span> <span>fille</span> <span>nommée</span> <span>Luna</span> <span>s'approche</span> <span>doucement</span> <span>de</span> <span>lui.</span> <span>Elle</span> <span>lui</span> <span>offre</span> <span>des</span> <span>pommes</span> <span>juteuses</span> <span>et</span> <span>lui</span> <span>parle</span> <span>avec</span> <span>tendresse.</span> <span>Peu</span> <span>à</span> <span>peu,</span> <span>Esprit</span> <span>comprend</span> <span>que</span> <span>Luna</span> <span>respecte</span> <span>sa</span> <span>liberté.</span> <span>Ensemble,</span> <span>ils</span> <span>forment</span> <span>une</span> <span>amitié</span> <span>extraordinaire</span> <span>basée</span> <span>sur</span> <span>la</span> <span>confiance</span> <span>mutuelle.</span>
+                </div>
+                <div class="controls">
+                    <button onclick="startReading('spirit')">🚀 Commencer</button>
+                    <button onclick="pauseReading()">⏸️ Pause</button>
+                    <button onclick="resetReading('spirit')">🔄 Recommencer</button>
+                </div>
+                <div class="speed-control">
+                    Vitesse : <span id="speedDisplay">110</span> mots/min
+                    <input type="range" id="speedSlider" min="80" max="180" value="110" oninput="updateSpeed()">
+                </div>
+                <div class="progress-bar"><div class="progress-fill" id="progressBar"></div></div>
+                <div class="question">
+                    <h3>Où vit Esprit ?</h3>
+                    <div class="choices">
+                        <div class="choice" onclick="selectAnswer(this, false, 'spirit')">a) Dans une écurie</div>
+                        <div class="choice" onclick="selectAnswer(this, true, 'spirit')">b) Dans les prairies sauvages</div>
+                        <div class="choice" onclick="selectAnswer(this, false, 'spirit')">c) Dans une ferme</div>
+                    </div>
+                </div>
+                <div class="question">
+                    <h3>Comment s'appelle la jeune fille ?</h3>
+                    <div class="choices">
+                        <div class="choice" onclick="selectAnswer(this, false, 'spirit')">a) Clara</div>
+                        <div class="choice" onclick="selectAnswer(this, true, 'spirit')">b) Luna</div>
+                        <div class="choice" onclick="selectAnswer(this, false, 'spirit')">c) Étoile</div>
+                    </div>
+                </div>
+                <div class="score">Score : <span id="spiritScore">0</span>/2 🏆</div>
+            </div>
+        </div>
+        
+        <div id="bella" class="text-content">
+            <div class="exercise">
+                <div class="text-title">🦄 Bella, la jument élégante</div>
+                <div class="text-passage" id="bellaText">
+                    <span>Bella</span> <span>est</span> <span>une</span> <span>jument</span> <span>blanche</span> <span>comme</span> <span>la</span> <span>neige</span> <span>avec</span> <span>une</span> <span>crinière</span> <span>argentée.</span> <span>Elle</span> <span>vit</span> <span>dans</span> <span>un</span> <span>château</span> <span>royal</span> <span>où</span> <span>elle</span> <span>est</span> <span>la</span> <span>favorite</span> <span>de</span> <span>la</span> <span>princesse</span> <span>Amélie.</span> <span>Bella</span> <span>adore</span> <span>les</span> <span>concours</span> <span>de</span> <span>saut</span> <span>d'obstacles</span> <span>et</span> <span>les</span> <span>défilés</span> <span>royaux.</span> <span>Sa</span> <span>démarche</span> <span>est</span> <span>si</span> <span>gracieuse</span> <span>que</span> <span>tous</span> <span>l'admirent.</span> <span>Chaque</span> <span>matin,</span> <span>Bella</span> <span>reçoit</span> <span>un</span> <span>brossage</span> <span>minutieux</span> <span>pour</span> <span>faire</span> <span>briller</span> <span>son</span> <span>pelage.</span> <span>Elle</span> <span>porte</span> <span>une</span> <span>selle</span> <span>ornée</span> <span>de</span> <span>pierres</span> <span>précieuses</span> <span>bleues.</span> <span>Lors</span> <span>des</span> <span>compétitions,</span> <span>Bella</span> <span>saute</span> <span>par-dessus</span> <span>les</span> <span>obstacles</span> <span>avec</span> <span>une</span> <span>élégance</span> <span>remarquable.</span> <span>Elle</span> <span>prouve</span> <span>que</span> <span>beauté</span> <span>et</span> <span>talent</span> <span>peuvent</span> <span>aller</span> <span>ensemble.</span>
+                </div>
+                <div class="controls">
+                    <button onclick="startReading('bella')">🚀 Commencer</button>
+                    <button onclick="pauseReading()">⏸️ Pause</button>
+                    <button onclick="resetReading('bella')">🔄 Recommencer</button>
+                </div>
+                <div class="progress-bar"><div class="progress-fill" id="progressBarBella"></div></div>
+                <div class="question">
+                    <h3>De quelle couleur est Bella ?</h3>
+                    <div class="choices">
+                        <div class="choice" onclick="selectAnswer(this, false, 'bella')">a) Brune</div>
+                        <div class="choice" onclick="selectAnswer(this, true, 'bella')">b) Blanche comme la neige</div>
+                        <div class="choice" onclick="selectAnswer(this, false, 'bella')">c) Noire</div>
+                    </div>
+                </div>
+                <div class="question">
+                    <h3>Que fait Bella lors des compétitions ?</h3>
+                    <div class="choices">
+                        <div class="choice" onclick="selectAnswer(this, true, 'bella')">a) Elle saute des obstacles</div>
+                        <div class="choice" onclick="selectAnswer(this, false, 'bella')">b) Elle danse</div>
+                        <div class="choice" onclick="selectAnswer(this, false, 'bella')">c) Elle court en cercle</div>
+                    </div>
+                </div>
+                <div class="score">Score : <span id="bellaScore">0</span>/2 🏆</div>
+            </div>
+        </div>
+        
+        <div id="thunder" class="text-content">
+            <div class="exercise">
+                <div class="text-title">⚡ Tonnerre, le cheval de course</div>
+                <div class="text-passage" id="thunderText">
+                    <span>Tonnerre</span> <span>est</span> <span>un</span> <span>cheval</span> <span>noir</span> <span>comme</span> <span>la</span> <span>nuit</span> <span>avec</span> <span>des</span> <span>pattes</span> <span>blanches.</span> <span>Il</span> <span>est</span> <span>le</span> <span>plus</span> <span>rapide</span> <span>de</span> <span>tous</span> <span>les</span> <span>chevaux</span> <span>de</span> <span>course</span> <span>du</span> <span>pays.</span> <span>Son</span> <span>entraîneur,</span> <span>Monsieur</span> <span>Martin,</span> <span>le</span> <span>prépare</span> <span>chaque</span> <span>jour</span> <span>pour</span> <span>les</span> <span>grandes</span> <span>compétitions.</span> <span>Tonnerre</span> <span>adore</span> <span>sentir</span> <span>le</span> <span>vent</span> <span>dans</span> <span>sa</span> <span>crinière</span> <span>quand</span> <span>il</span> <span>galope</span> <span>à</span> <span>toute</span> <span>vitesse.</span> <span>Ses</span> <span>sabots</span> <span>font</span> <span>un</span> <span>bruit</span> <span>de</span> <span>tonnerre</span> <span>sur</span> <span>la</span> <span>piste</span> <span>de</span> <span>course.</span> <span>Les</span> <span>spectateurs</span> <span>l'encouragent</span> <span>en</span> <span>criant</span> <span>son</span> <span>nom.</span> <span>Tonnerre</span> <span>franchit</span> <span>la</span> <span>ligne</span> <span>d'arrivée</span> <span>en</span> <span>premier</span> <span>à</span> <span>chaque</span> <span>course.</span> <span>Il</span> <span>montre</span> <span>qu'avec</span> <span>de</span> <span>l'entraînement</span> <span>et</span> <span>de</span> <span>la</span> <span>détermination,</span> <span>on</span> <span>peut</span> <span>réaliser</span> <span>ses</span> <span>rêves.</span>
+                </div>
+                <div class="controls">
+                    <button onclick="startReading('thunder')">🚀 Commencer</button>
+                    <button onclick="pauseReading()">⏸️ Pause</button>
+                    <button onclick="resetReading('thunder')">🔄 Recommencer</button>
+                </div>
+                <div class="progress-bar"><div class="progress-fill" id="progressBarThunder"></div></div>
+                <div class="question">
+                    <h3>Quelle est la particularité de Tonnerre ?</h3>
+                    <div class="choices">
+                        <div class="choice" onclick="selectAnswer(this, false, 'thunder')">a) Il est très grand</div>
+                        <div class="choice" onclick="selectAnswer(this, true, 'thunder')">b) Il est le plus rapide</div>
+                        <div class="choice" onclick="selectAnswer(this, false, 'thunder')">c) Il est très vieux</div>
+                    </div>
+                </div>
+                <div class="question">
+                    <h3>Comment s'appelle son entraîneur ?</h3>
+                    <div class="choices">
+                        <div class="choice" onclick="selectAnswer(this, true, 'thunder')">a) Monsieur Martin</div>
+                        <div class="choice" onclick="selectAnswer(this, false, 'thunder')">b) Monsieur Pierre</div>
+                        <div class="choice" onclick="selectAnswer(this, false, 'thunder')">c) Monsieur Paul</div>
+                    </div>
+                </div>
+                <div class="score">Score : <span id="thunderScore">0</span>/2 🏆</div>
+            </div>
+        </div>
+        
+        <div id="star" class="text-content">
+            <div class="exercise">
+                <div class="text-title">⭐ Étoile, la jument courageuse</div>
+                <div class="text-passage" id="starText">
+                    <span>Étoile</span> <span>est</span> <span>une</span> <span>jument</span> <span>dorée</span> <span>avec</span> <span>une</span> <span>tache</span> <span>blanche</span> <span>en</span> <span>forme</span> <span>d'étoile</span> <span>sur</span> <span>le</span> <span>front.</span> <span>Elle</span> <span>travaille</span> <span>comme</span> <span>cheval</span> <span>de</span> <span>sauvetage</span> <span>dans</span> <span>les</span> <span>montagnes</span> <span>enneigées.</span> <span>Étoile</span> <span>aide</span> <span>les</span> <span>secouristes</span> <span>à</span> <span>retrouver</span> <span>les</span> <span>personnes</span> <span>perdues</span> <span>dans</span> <span>la</span> <span>neige.</span> <span>Son</span> <span>excellent</span> <span>odorat</span> <span>et</span> <span>son</span> <span>courage</span> <span>la</span> <span>rendent</span> <span>irremplaçable.</span> <span>Par</span> <span>temps</span> <span>de</span> <span>tempête,</span> <span>Étoile</span> <span>n'hésite</span> <span>jamais</span> <span>à</span> <span>braver</span> <span>le</span> <span>froid</span> <span>et</span> <span>le</span> <span>vent.</span> <span>Elle</span> <span>porte</span> <span>sur</span> <span>son</span> <span>dos</span> <span>des</span> <span>provisions</span> <span>médicales</span> <span>importantes.</span> <span>Grâce</span> <span>à</span> <span>Étoile,</span> <span>de</span> <span>nombreuses</span> <span>vies</span> <span>ont</span> <span>été</span> <span>sauvées.</span> <span>Elle</span> <span>prouve</span> <span>que</span> <span>le</span> <span>courage</span> <span>et</span> <span>la</span> <span>générosité</span> <span>sont</span> <span>les</span> <span>plus</span> <span>belles</span> <span>qualités.</span>
+                </div>
+                <div class="controls">
+                    <button onclick="startReading('star')">🚀 Commencer</button>
+                    <button onclick="pauseReading()">⏸️ Pause</button>
+                    <button onclick="resetReading('star')">🔄 Recommencer</button>
+                </div>
+                <div class="progress-bar"><div class="progress-fill" id="progressBarStar"></div></div>
+                <div class="question">
+                    <h3>Quel est le travail d'Étoile ?</h3>
+                    <div class="choices">
+                        <div class="choice" onclick="selectAnswer(this, true, 'star')">a) Cheval de sauvetage</div>
+                        <div class="choice" onclick="selectAnswer(this, false, 'star')">b) Cheval de course</div>
+                        <div class="choice" onclick="selectAnswer(this, false, 'star')">c) Cheval de spectacle</div>
+                    </div>
+                </div>
+                <div class="question">
+                    <h3>Qu'est-ce qui rend Étoile reconnaissable ?</h3>
+                    <div class="choices">
+                        <div class="choice" onclick="selectAnswer(this, false, 'star')">a) Sa grande taille</div>
+                        <div class="choice" onclick="selectAnswer(this, true, 'star')">b) Une tache en forme d'étoile sur le front</div>
+                        <div class="choice" onclick="selectAnswer(this, false, 'star')">c) Sa crinière très longue</div>
+                    </div>
+                </div>
+                <div class="score">Score : <span id="starScore">0</span>/2 🏆</div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let readingInterval, currentWordIndex = 0, isReading = false, speed = 110, currentText = 'spirit';
+        let scores = { spirit: 0, bella: 0, thunder: 0, star: 0 };
+        
+        function showText(textType) {
+            pauseReading();
+            document.querySelectorAll('.text-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.text-button').forEach(b => b.classList.remove('active'));
+            document.getElementById(textType).classList.add('active');
+            event.target.classList.add('active');
+            currentText = textType;
+            resetReading(textType);
+        }
+        
+        function startReading(textType) {
+            if (isReading) return;
+            isReading = true;
+            currentText = textType;
+            const words = document.querySelectorAll(`#${textType}Text span`);
+            const delay = 60000 / speed;
+            
+            readingInterval = setInterval(() => {
+                words.forEach(w => w.classList.remove('highlighted'));
+                if (currentWordIndex < words.length) {
+                    words[currentWordIndex].classList.add('highlighted');
+                    currentWordIndex++;
+                    const progress = (currentWordIndex / words.length) * 100;
+                    const progressBar = document.getElementById(textType === 'spirit' ? 'progressBar' : 'progressBar' + textType.charAt(0).toUpperCase() + textType.slice(1));
+                    if (progressBar) progressBar.style.width = progress + '%';
+                } else {
+                    clearInterval(readingInterval);
+                    isReading = false;
+                    currentWordIndex = 0;
+                    showFeedback('Excellent ! 🎉 Lecture terminée !', true);
+                }
+            }, delay);
+        }
+        
+        function pauseReading() {
+            if (readingInterval) {
+                clearInterval(readingInterval);
+                isReading = false;
+            }
+        }
+        
+        function resetReading(textType) {
+            pauseReading();
+            currentWordIndex = 0;
+            currentText = textType;
+            document.querySelectorAll(`#${textType}Text span`).forEach(w => w.classList.remove('highlighted'));
+            const progressBar = document.getElementById(textType === 'spirit' ? 'progressBar' : 'progressBar' + textType.charAt(0).toUpperCase() + textType.slice(1));
+            if (progressBar) progressBar.style.width = '0%';
+        }
+        
+        function updateSpeed() {
+            speed = document.getElementById('speedSlider').value;
+            document.getElementById('speedDisplay').textContent = speed;
+            if (isReading) {
+                pauseReading();
+                startReading(currentText);
+            }
+        }
+        
+        function selectAnswer(element, isCorrect, textType) {
+            const choices = element.parentNode.querySelectorAll('.choice');
+            choices.forEach(c => {
+                c.style.pointerEvents = 'none';
+                if (c === element) {
+                    c.classList.add(isCorrect ? 'correct' : 'incorrect');
+                } else if (c.onclick.toString().includes('true')) {
+                    c.classList.add('correct');
+                }
+            });
+            
+            if (isCorrect) {
+                scores[textType]++;
+                document.getElementById(textType + 'Score').textContent = scores[textType];
+                showFeedback('Bravo ! 🎉', true);
+            } else {
+                showFeedback('Pas tout à fait... 🤔', false);
+            }
+        }
+        
+        function showFeedback(message, isCorrect) {
+            const feedback = document.createElement('div');
+            feedback.className = 'feedback ' + (isCorrect ? 'correct' : 'incorrect');
+            feedback.textContent = message;
+            const activeQuestion = event.target.closest('.question');
+            if (activeQuestion) {
+                activeQuestion.insertAdjacentElement('afterend', feedback);
+                setTimeout(() => feedback.remove(), 3000);
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', updateSpeed);
+    </script>
+</body>
+</html>
